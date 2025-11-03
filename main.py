@@ -1,7 +1,3 @@
-''''' 
-A faire pour Lundi
--tous les 10 fruits: bombe
-'''
 from pyray import *
 from raylib import*
 import random 
@@ -17,10 +13,10 @@ snake= [
 vitesse=[1,0]
 fruit=[WIDTH//2,HEIGHT//2]
 pomme=[2*WIDTH,2*HEIGHT]
-bombe=[]
 init_window(SIDE*WIDTH,SIDE*HEIGHT,"Le serpent")
 set_target_fps(10)
 perdu=False
+seconde=0
 while not window_should_close() and not perdu:
     begin_drawing()
     clear_background(BLACK)
@@ -75,10 +71,7 @@ while not window_should_close() and not perdu:
     elif new_head in snake [:-1]:
         perdu =True
         draw_text("Game Over", WIDTH//2, HEIGHT//2, 100, ORANGE)
-    elif new_head in bombe:
-        perdu= True
-        draw_text("Game Over")
-
+    
 
 
 
@@ -87,6 +80,11 @@ while not window_should_close() and not perdu:
     fruitx= fruit[0]*SIDE+SIDE//2
     fruity=fruit[1]*SIDE+SIDE//2
     draw_circle(fruitx, fruity,19,RED)
+    if seconde==30:
+            pomme=[2*WIDTH, 2*HEIGHT]
+            seconde=0
+    else:
+            seconde=seconde+1
     draw_circle(pomme[0]*SIDE+SIDE//2, pomme[1]*SIDE+SIDE//2, 19,GREEN)
     for i, (x,y) in enumerate(snake):
         color= PURPLE if i==len(snake)-1 else DARKPURPLE
